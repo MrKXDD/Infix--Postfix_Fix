@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.File;
 
 public class InfixToPostfix {
 
@@ -101,13 +102,21 @@ public class InfixToPostfix {
         System.out.println();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws Exception {
+        Scanner scanner;
+        if (args.length >= 1) {
+            scanner = new Scanner(new File(args[0]));
+            System.out.println("Reading from file: " + args[0]);
+            System.out.println("------------------------------------------------");
+        } else {
+            scanner = new Scanner(System.in);
+            System.out.println("Infix to Postfix Converter (type 'exit' to quit)");
+            System.out.println("------------------------------------------------");
+        }
+
         int exprNum = 1;
-        System.out.println("Infix to Postfix Converter (type 'exit' to quit)");
-        System.out.println("------------------------------------------------");
-        while (true) {
-            System.out.print("Enter infix expression: ");
+        while (scanner.hasNextLine()) {
+            if (args.length == 0) System.out.print("Enter infix expression: ");
             String line = scanner.nextLine();
             if (line.trim().equalsIgnoreCase("exit")) {
                 System.out.println("Goodbye!");
